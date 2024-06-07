@@ -1,4 +1,5 @@
 import express from "express";
+import cors from 'cors';
 
 const db = [
   {
@@ -17,6 +18,7 @@ const db = [
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // Rota para Listar os Livros
 app.get("/livros", (req, res) => {
