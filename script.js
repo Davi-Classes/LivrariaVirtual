@@ -1,26 +1,16 @@
+// API
+const API = "https://livrariavirtual.onrender.com";
+
 // Criando o array onde armazenare-mos os livros
-let livrosData = [
-  {
-    titulo: "Ultra Aprendizado",
-    autor: "Scott H. Young",
-    ano: 2019,
-    editora: "Moderno",
-  },
-  {
-    titulo: "Harry Potter - A pedra filosofal",
-    autor: "J. K. Rowlling",
-    ano: 1999,
-    editora: "Moderno",
-  },
-];
+let livrosData = [];
 
 // Criando uma função para listar os livros no HTML
 function listarLivros(livros) {
   // Buscando tag "tbody" do HTML para colocar os dados
   const tableLivro = document.getElementById("data-livro");
-  
+
   // Limpando o que já tem para mostrar somente o que foi passado como parametro
-  tableLivro.innerText = ''
+  tableLivro.innerText = "";
 
   // Percorrendo os livros com a função "map"
   // Para cada livro, faça: ...
@@ -39,7 +29,7 @@ function listarLivros(livros) {
     // Criando celula do ano
     const tdAno = document.createElement("td");
     tdAno.textContent = livro.ano;
-    
+
     // Criando celula da editora
     const tdEditora = document.createElement("td");
     tdEditora.textContent = livro.editora;
@@ -52,13 +42,18 @@ function listarLivros(livros) {
 
     // Adicionando linha na tabela que mostra no HTML
     tableLivro.appendChild(tr);
-  })
+  });
 }
 
 // Função que irá lidar com o evento de "load"
 // o load é chamado quando o elemento carrega
 function handleCarregarLivros() {
-    listarLivros(livrosData);
+  fetch(`${API}/livros`)
+    .then(response => response.json())
+    .then(data => {
+       livrosData.push(...data)
+       listarLivros(livrosData)
+    })
 }
 
 // Vinculando a função com o evento de load da janela
