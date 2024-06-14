@@ -78,7 +78,7 @@ app.post("/livros", (req, res) => {
     id: newId(db),
     titulo: body.titulo,
     autor: body.autor,
-    ano: body.autor,
+    ano: body.ano,
     editora: body.editora,
   };
 
